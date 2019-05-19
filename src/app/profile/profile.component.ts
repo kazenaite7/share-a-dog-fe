@@ -14,20 +14,40 @@ interface Dog{
 
 export class ProfileComponent implements OnInit {
 
-  records = {}
+  advert = {}
+  dog = {}
 
   constructor(private http: HttpClient) {
 
    }
 
-   getData(){
+   getDog(){
      return this.http.get('https://share-a-dog.herokuapp.com/dog/111')
    }
 
+   getAdvert(){
+    return this.http.get('https://share-a-dog.herokuapp.com/advert/Pasirūpinkite mano angelėliu')
+   }
+
+   borrow(){
+    console.log("CLICKEDDD");
+    window.location.reload();
+    return this.http.get('https://share-a-dog.herokuapp.com/advert/borrow/Pasirūpinkite mano angelėliu')
+    .subscribe( data =>{
+      this.advert = data;
+     }
+     )
+   }
+
   ngOnInit() {
-     this.getData().subscribe(data =>{
-      this.records = data
+     this.getDog().subscribe(data =>{
+      this.dog = data
      });
+
+     this.getAdvert().subscribe( data =>{
+      this.advert = data;
+     }
+     );
   }
 
 }
